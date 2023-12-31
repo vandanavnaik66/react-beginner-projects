@@ -4,10 +4,14 @@ import "./App.css";
 function App() {
   let data = { name: "", email: "", password: "" };
   const [inputs, setInputs] = useState(data);
+  const [display, setDisplay] = useState(); //this state variable is only for displaying the values so just copied all input state variable to this variable
   const [flag, setFlag] = useState(false);
 
   function handleChange(e) {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    // const{name,value} = e.target ;
+    // setInputs((pre)=>({ ...pre, name:value }));  <=> this also we can use 
+
+    setInputs((pre)=>({ ...pre, [e.target.name]: e.target.value }));
   }
 
   function handleSubmit(e) {
@@ -17,8 +21,10 @@ function App() {
     } else {
       setFlag(true);
     }
-
+    setDisplay({...inputs})
+   setInputs({ name: "", email: "", password: "" } )
   }
+
 
   return (
     <>
@@ -27,7 +33,7 @@ function App() {
           <div className="main-container">
             <div className="inner-content">
               <pre>
-                {flag ? ( <h2> {`${inputs.name} have registered successfully...`} </h2>) : 
+                {flag ? ( <h2> {`${display.name} have registered successfully...`} </h2>) : 
                 (""  )}
               </pre>
               <div className="reg-text">
